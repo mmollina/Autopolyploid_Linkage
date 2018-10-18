@@ -1,4 +1,4 @@
-# Supplementary code to the paper "Linkage analysis and haplotype phasing in experimental autopolyploid populations with high ploidy level using hidden Markov models"
+# Supplementary scripts for the paper "Linkage analysis and haplotype phasing in experimental autopolyploid populations with high ploidy level using hidden Markov models"
 
 Before performing the analysis and simulations, please install:
 
