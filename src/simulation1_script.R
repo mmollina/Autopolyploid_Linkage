@@ -16,7 +16,7 @@ rm(arg)
  # n.ind<-200              # number of individuals
  # n.mrk<-10               # number of markers
  # n.sim.start<-1          # simulation starting point
- # n.sim.stop<-3          # simulation stop point
+ # n.sim.stop<-3           # simulation stop point
  # seed.for.config<-140    # seed for simulating the linkage phase configuration
  # thres.twopt<-3          # threshold for two-point analysis
  # extend.tail<-10         # number of markers to be considered when using HMM

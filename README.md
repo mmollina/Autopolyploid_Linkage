@@ -2,7 +2,7 @@
 
 Before performing the analysis and simulations, please install:
 
-- MAPPoly, available [here](https://github.com/mmollina/MAPPoly)
+- MAPpoly, available [here](https://github.com/mmollina/MAPPoly)
 - PedigreeSim, available [here](https://www.wur.nl/en/show/Software-PedigreeSim.htm)
 
 R scripts:

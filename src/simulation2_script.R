@@ -31,14 +31,11 @@ rm(arg)
  phase.number.limit = +Inf      # Limit of number of phases to test in each marker addition 
  sub.map.size.diff.limit = +Inf # Limit of map increment in each marker addition
  natural.pairing <- 0 #probabilities of bivalents and quadrivalents are determined by the “quadrivalents” argument
- 
- 
+
  #Scenario C
  max.ph=m/2;
  c.h.a.r<-TRUE #choose homologous at random
- 
- 
- 
+
  #####
  ##Simulating homologous chromosomes
  ph.temp<-sim_homologous(m=m,
@@ -50,7 +47,7 @@ rm(arg)
  php<-ph_list_to_matrix(ph.temp$hom.allele.p, m)
  phq<-ph_list_to_matrix(ph.temp$hom.allele.q, m)
  w<-cbind(php,phq)
- 
+
  #dummy simulation just to cache genotype counts
  dat <- poly_cross_simulate(m = m,
                             rf.vec = rep(.001, (n.mrk-1)),
@@ -143,7 +140,7 @@ rm(arg)
    colnames(G)<-paste0("Ind_", 1:n.ind)
    
    ## Attribute NA to impossible classes
-   ## in this case, instead of NA, we use the maximum possible value + 1 for missing values (mappoly codification)
+   ## in this case, instead of NA, we use ploidy level + 1 for missing values (mappoly codification)
    for(j in 1:n.mrk)
    {
      expect<-segreg_poly(m = m, dP = dat$dosage.p[j], dQ = dat$dosage.q[j])
