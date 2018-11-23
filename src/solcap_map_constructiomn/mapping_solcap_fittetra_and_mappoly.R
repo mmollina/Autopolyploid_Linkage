@@ -1,8 +1,7 @@
 require(mappoly)
 setwd("~/repos/Autopolyploid_Linkage/src/solcap_map_constructiomn/")
 #####
-solcap.dat<-read_geno_dist(file.in = "~/repos/tutorials/solcap/snp_calling/fitTetra/SolCAP", prob.thres = 0.95)
-save(solcap.dat, file = "SolCAP_B2721.rda")
+solcap.dat<-read_geno_dist(file.in = "~/repos/Autopolyploid_Linkage/src/solcap_map_constructiomn/snp_calling/SolCAP", prob.thres = 0.95)
 solcap.dat$sequence[solcap.dat$sequence==0]<-NA
 all.mrk<-make_seq_mappoly(solcap.dat, "all")
 print(solcap.dat, detailed = TRUE)

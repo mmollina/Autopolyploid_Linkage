@@ -12,16 +12,14 @@ rm(arg)
 
 require(mappoly)
 require(polymapR)
-setwd("~/repos/Autopolyploid_Linkage/src/simulation3/")
-source("~/repos/Autopolyploid_Linkage/src/simulation3/simulation.R")
-source("~/repos/Autopolyploid_Linkage/src/simulation3/build_using_polymapR.R")
-source("~/repos/Autopolyploid_Linkage/src/simulation3/build_using_MAPpoly.R")
+setwd("~/repos/Autopolyploid_Linkage/src/simulation_study_3/")
+source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/simulation.R")
+source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/build_using_polymapR.R")
+source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/build_using_MAPpoly.R")
  # n.sim=28
  # n.mrk=200
  # prob.dose=c(0.4,0.4,0.1,0.1)
  # LODth=3
-
-
 
 cat(n.sim, "\n")
 #####
