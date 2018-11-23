@@ -11,4 +11,5 @@ R scripts:
 - [R script for Simulation 1](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/simulation1_script.R)
 - [R script for Simulation 2](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/simulation2_script.R)
 - [R script for Building SolCAP map](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/solcap_map_construction/mapping_solcap_fittetra_and_mappoly.R)
+- [Phased SolCAP map](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/solcap_map_construction/phased_map.csv)
 - [R script for comparison study](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/simulation_study_3/simulation3_script.R)
