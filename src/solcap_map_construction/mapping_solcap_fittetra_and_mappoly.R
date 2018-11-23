@@ -1,5 +1,5 @@
 require(mappoly)
-setwd("~/repos/Autopolyploid_Linkage/src/solcap_map_constructiomn/")
+setwd("~/repos/Autopolyploid_Linkage/src/solcap_map_construction/")
 #####
 solcap.dat<-read_geno_dist(file.in = "~/repos/Autopolyploid_Linkage/src/solcap_map_constructiomn/snp_calling/SolCAP", prob.thres = 0.95)
 solcap.dat$sequence[solcap.dat$sequence==0]<-NA
