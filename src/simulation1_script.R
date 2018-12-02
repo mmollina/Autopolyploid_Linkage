@@ -1,6 +1,6 @@
 #R CMD BATCH --no-save --no-restore '--args m=6 rec.frac=0.01 n.ind=200 n.mrk=10 n.sim.start=1 n.sim.stop=10 seed.for.config=140 thres.twopt=1 thres.hmm=1 extend.tail=10 tol=10e-3 tol.final=0.01 case=1' simulation_and_analisys.R  res_1.Rout &
 require(mappoly)
-
+source("~/repos/Autopolyploid_Linkage/src/sim_homologous_simulation_1.R")
 ##Reading arguments
 options(echo=TRUE)
 arg <- commandArgs(trailingOnly = TRUE)
@@ -11,20 +11,20 @@ for(i in 1:length(arg)){
 rm(arg)
 
 ##Simulation Arguments
- # m<-6                    # ploidy level
- # rec.frac<-0.01          # recombination fraction
- # n.ind<-200              # number of individuals
- # n.mrk<-10               # number of markers
- # n.sim.start<-1          # simulation starting point
- # n.sim.stop<-3           # simulation stop point
- # seed.for.config<-140    # seed for simulating the linkage phase configuration
- # thres.twopt<-3          # threshold for two-point analysis
- # extend.tail<-10         # number of markers to be considered when using HMM
- #                         # at the end of a linkage group
- # thres.hmm<-1            # threshold for the HMM analysis
- # tol<-0.1                # tolerance for the HMM
- # tol.final<-0.001        # tolerance for the final map
- # case<-1                 # Case simulated
+ m<-4                    # ploidy level
+ rec.frac<-0.01          # recombination fraction
+ n.ind<-200              # number of individuals
+ n.mrk<-10               # number of markers
+ n.sim.start<-1          # simulation starting point
+ n.sim.stop<-3           # simulation stop point
+ seed.for.config<-140    # seed for simulating the linkage phase configuration
+ thres.twopt<-3          # threshold for two-point analysis
+ extend.tail<-10         # number of markers to be considered when using HMM
+                         # at the end of a linkage group
+ thres.hmm<-1            # threshold for the HMM analysis
+ tol<-0.1                # tolerance for the HMM
+ tol.final<-0.001        # tolerance for the final map
+ case<-3                 # Case simulated
 
 ##Which scenrario should be simulated
 if(case==1)
@@ -44,13 +44,13 @@ if(case==3)
 }
 
 ##Simulating homologous chromosomes
-ph.temp<-sim_homologous(m=m,
-                        n.mrk=n.mrk,
-                        max.d=m/2,    #max dosage number
-                        max.ph=max.ph,
-                        choose.hom.at.random=c.h.a.r,
-                        seed=seed.for.config)
-
+ ph.temp<-sim_homologous_simulation_1(m=m,
+                                      n.mrk=n.mrk,
+                                      max.d=m/2,    #max dosage number
+                                      max.ph=max.ph,
+                                      choose.hom.at.random=c.h.a.r,
+                                      seed=seed.for.config)
+ 
 #Recombination fraction vector
 rf.vec<-rep(rec.frac, (n.mrk-1))
 
