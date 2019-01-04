@@ -4,6 +4,7 @@ Before performing the analysis and simulations, please install:
 
 - MAPpoly, available [here](https://github.com/mmollina/MAPPoly)
 - PedigreeSim, available [here](https://www.wur.nl/en/show/Software-PedigreeSim.htm)
+- polymapR, available [here](https://cran.r-project.org/web/packages/polymapR/index.html)
 
 R scripts:
 - [Auxiliary functions for Supporting Information 3](https://github.com/mmollina/Autopolyploid_Linkage/blob/master/src/SI3_auxiliary_functions.R)
