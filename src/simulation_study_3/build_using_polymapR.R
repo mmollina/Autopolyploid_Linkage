@@ -1,5 +1,6 @@
+require(polymapR)
 #####
-## Map Construction using polymapR
+## Map Construction using polymapR, fixed by P. Bourke April 2019
 #####
 build_map_polymapR<-function(dat, 
                              n.chr = 1, 
@@ -22,15 +23,24 @@ build_map_polymapR<-function(dat,
   SN_SN_P1_coupl <- SN_SN_P1[SN_SN_P1$phase == "coupling",] # select only markerpairs in coupling
   
   P1_homologues_1 <- cluster_SN_markers(linkage_df = SN_SN_P1, 
-                                        LOD_sequence = c(1:20), 
+                                        LOD_sequence = c(0:10), 
                                         LG_number = n.chr,
                                         ploidy = 6,
                                         parentname = "P1",
                                         plot_network = FALSE,
                                         plot_clust_size = FALSE)
   
-  pz<-names(which(sapply(P1_homologues_1, function(x) length(table(x$cluster))) == 6*n.chr)[1])
-  length(table(P1_homologues_1[[pz]]$cluster))
+  # pz<-names(which(sapply(P1_homologues_1, function(x) length(table(x$cluster))) == 6*n.chr)[1])
+  # length(table(P1_homologues_1[[pz]]$cluster))
+  
+  div.nums1 <- sapply(P1_homologues_1, function(x) length(table(x$cluster)))
+  div.nums1 <- div.nums1[div.nums1 <= 6*n.chr] #remove splits > 6 homologues
+  
+  pz <- names(which(div.nums1 == 6*n.chr))[1]
+  
+  if(is.na(pz)){ #not all homologues tagged by simplex markers
+    pz <- names(which.max(div.nums1)) #take the LOD that maximises the split
+  }
   
   SN_DN_P1 <- linkage(dosage_matrix = segregating_data, 
                       markertype1 = c(1,0),
@@ -40,13 +50,18 @@ build_map_polymapR<-function(dat,
                       ploidy = 6,
                       pairing = "random")
   
-  LGHomDf_P1_1 <- bridgeHomologues(cluster_stack = P1_homologues_1[[pz]], 
-                                   linkage_df = SN_DN_P1, 
-                                   LOD_threshold = LOD_bridge, 
-                                   automatic_clustering = TRUE, 
-                                   LG_number = n.chr,
-                                   parentname = "P1")
+  # LGHomDf_P1_1 <- bridgeHomologues(cluster_stack = P1_homologues_1[[pz]], 
+  #                                  linkage_df = SN_DN_P1, 
+  #                                  LOD_threshold = LOD_bridge, 
+  #                                  automatic_clustering = TRUE, 
+  #                                  LG_number = n.chr,
+  #                                  parentname = "P1")
   
+  
+  LGHomDf_P1_1 <- define_LG_structure(cluster_list = P1_homologues_1,
+                                      LOD_chm = 0, #deprecated if LG_number = 1
+                                      LOD_hom = as.numeric(pz),
+                                      LG_number = 1)
   
   SN_SS_P1 <- linkage(dosage_matrix = segregating_data, 
                       markertype1 = c(1,0),
@@ -65,7 +80,7 @@ build_map_polymapR<-function(dat,
                                           LOD_threshold = LOD_assign_LG,
                                           ploidy = 6)
   
-  head(P1_SxS_Assigned)
+  # head(P1_SxS_Assigned)
   P1_DxN_Assigned <- assign_linkage_group(linkage_df = SN_DN_P1,
                                           LG_hom_stack = LGHomDf_P1_1,
                                           SN_colname = "marker_a",
@@ -103,14 +118,24 @@ build_map_polymapR<-function(dat,
   SN_SN_P2_coupl <- SN_SN_P2[SN_SN_P2$phase == "coupling",] # select only markerpairs in coupling
   
   P2_homologues_1 <- cluster_SN_markers(linkage_df = SN_SN_P2_coupl, 
-                                        LOD_sequence = c(1:20), 
+                                        LOD_sequence = c(0:20), 
                                         LG_number = n.chr,
                                         ploidy = 6,
                                         parentname = "P2",
                                         plot_network = FALSE,
                                         plot_clust_size = FALSE)
-  qz<-names(which(sapply(P2_homologues_1, function(x) length(table(x$cluster))) == 6*n.chr)[1])
-  length(table(P2_homologues_1[[qz]]$cluster))
+  
+  # qz<-names(which(sapply(P2_homologues_1, function(x) length(table(x$cluster))) == 6*n.chr)[1])
+  # length(table(P2_homologues_1[[qz]]$cluster))
+  
+  div.nums2 <- sapply(P2_homologues_1, function(x) length(table(x$cluster)))
+  div.nums2 <- div.nums2[div.nums2 <= 6*n.chr] #remove splits > 6 homologues
+  
+  qz <- names(which(div.nums2 == 6*n.chr))[1]
+  
+  if(is.na(qz)){ #not all 6 homologues tagged by simplex markers
+    qz <- names(which.max(div.nums2)) #take the LOD that maximises the split
+  }
   
   SN_DN_P2 <- linkage(dosage_matrix = segregating_data, 
                       markertype1 = c(1,0),
@@ -121,14 +146,19 @@ build_map_polymapR<-function(dat,
                       pairing = "random")
   
   
-  LGHomDf_P2_1 <- bridgeHomologues(cluster_stack = P2_homologues_1[[qz]], 
-                                   linkage_df = SN_DN_P2, 
-                                   LOD_threshold = LOD_bridge,
-                                   automatic_clustering = TRUE, 
-                                   LG_number = n.chr,
-                                   parentname = "P2")
+  # LGHomDf_P2_1 <- bridgeHomologues(cluster_stack = P2_homologues_1[[qz]], 
+  #                                  linkage_df = SN_DN_P2, 
+  #                                  LOD_threshold = LOD_bridge,
+  #                                  automatic_clustering = TRUE, 
+  #                                  LG_number = n.chr,
+  #                                  parentname = "P2")
   
-  table(LGHomDf_P2_1$LG, LGHomDf_P2_1$homologue)
+  LGHomDf_P2_1 <- define_LG_structure(cluster_list = P2_homologues_1,
+                                      LOD_chm = 0, #deprecated if LG_number = 1
+                                      LOD_hom = as.numeric(qz),
+                                      LG_number = 1)
+  
+  # table(LGHomDf_P2_1$LG, LGHomDf_P2_1$homologue)
   
   SN_SS_P2 <- linkage(dosage_matrix = segregating_data, 
                       markertype1 = c(1,0),
@@ -147,7 +177,7 @@ build_map_polymapR<-function(dat,
                                           LOD_threshold = LOD_assign_LG,
                                           ploidy = 6)
   
-  head(P2_SxS_Assigned)
+  # head(P2_SxS_Assigned)
   P2_DxN_Assigned <- assign_linkage_group(linkage_df = SN_DN_P2,
                                           LG_hom_stack = LGHomDf_P2_1,
                                           SN_colname = "marker_a",
@@ -215,4 +245,3 @@ build_map_polymapR<-function(dat,
                                           marker_assignment.2 = marker_assignments$P2)
   return(list(integrated = integrated.maplist, phased = phased.maplist))
 }
-
