@@ -1,21 +1,18 @@
 require(mappoly)
 setwd("~/repos/Autopolyploid_Linkage/src/solcap_map_construction/")
 #####
-solcap.dat<-read_geno_dist(file.in = "~/repos/Autopolyploid_Linkage/src/solcap_map_constructiomn/snp_calling/SolCAP", prob.thres = 0.95)
+solcap.dat<-read_geno_dist(file.in = "snp_calling/SolCAP", prob.thres = 0.95)
 solcap.dat$sequence[solcap.dat$sequence==0]<-NA
 all.mrk<-make_seq_mappoly(solcap.dat, "all")
 print(solcap.dat, detailed = TRUE)
 plot(solcap.dat)
 counts<-get_cache_two_pts_from_web(m = solcap.dat$m)
-# all.pairs<-est_pairwise_rf(input.seq = all.mrk,
-#                           count.cache = counts,
-#                           n.clusters = 16,
-#                           verbose=TRUE)
-#
-# save(all.pairs, file = "~/repos/tutorials/solcap/all_pairs_fittetra.rda", compress = TRUE)
-load("~/repos/tutorials/solcap/all_pairs_fittetra.rda")
+all.pairs<-est_pairwise_rf(input.seq = all.mrk,
+                           count.cache = counts,
+                           n.clusters = 16,
+                           verbose=TRUE)
 mat.full<-rf_list_to_matrix(input.twopt=all.pairs)
-#plot(mat.full)
+plot(mat.full)
 ###########
 ## Grouping
 ###########
@@ -80,7 +77,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
                                    high.prec = FALSE)
 all.maps[[ch]]<-list(map.denovo,
                     map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -144,7 +141,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
                                    high.prec = FALSE)
 all.maps[[ch]]<-list(map.denovo,
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -202,7 +199,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
                                    high.prec = FALSE)
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -260,7 +257,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
                                    high.prec = FALSE)
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -322,7 +319,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -384,7 +381,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      rev_map(map.genomic))
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -446,7 +443,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -508,7 +505,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -570,7 +567,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -632,7 +629,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -694,7 +691,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
@@ -757,7 +754,7 @@ map.genomic<-est_rf_hmm_sequential(input.seq = map.seq.ord,
 all.maps[[ch]]<-list(map.denovo, 
                      map.genomic)
 
-save.image("~/repos/tutorials/solcap/fittreta_and_mappoly.rda")
+save.image("fittreta_and_mappoly.rda")
 pdf(file = paste0("ch",ch,".pdf"))
 plot(map.denovo)
 plot(map.genomic)
