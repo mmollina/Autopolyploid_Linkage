@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+*.RData
+.Ruserdata
+*.pdf
+.Rout
+.Rproj
+*.rda
+!SolCAP.rda
+./src/solcap_map_construction/solcap_map_results.RData

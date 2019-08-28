@@ -1,4 +1,4 @@
-## Auxiliary codes for the Mollinari and Garcia 2018
+## Auxiliary codes for the Mollinari and Garcia 2019
 ## ------------------------------------------------------
 ## EXAMPLE in Supporting Information 3
 ##

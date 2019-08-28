@@ -1,13 +1,13 @@
-## Auxiliary codes for the Mollinari and Garcia 2018
+## Auxiliary codes for the Mollinari and Garcia 2019
 ## ------------------------------------------------------
-## These codes are useful clarify the method
+## These codes are useful to clarify the method
 ## described in the article.
-## For real analysis, use the program MAPPoly,
+## For analysis in real situations, use the program MAPpoly,
 ## available at https://github.com/mmollina/mappoly
 ## ------------------------------------------------------
 ## Algorithm 1
 ##------------
-## This is the Algorithm 1 in Mollinari and Garcia 2018
+## This is the Algorithm 1 in Mollinari and Garcia 2019
 ## For instance, in Table 2, b_17 can be obtained using
 ## bol_vec(6, 17)
 ## This function is particularly important for higher
