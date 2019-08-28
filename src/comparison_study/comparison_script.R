@@ -12,16 +12,21 @@ rm(arg)
 
 require(mappoly)
 require(polymapR)
-setwd("~/repos/Autopolyploid_Linkage/src/simulation_study_3/")
-source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/simulation.R")
-source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/build_using_polymapR.R")
-source("~/repos/Autopolyploid_Linkage/src/simulation_study_3/build_using_MAPpoly.R")
- # n.sim=28
- # n.mrk=200
- # prob.dose=c(0.4,0.4,0.1,0.1)
- # LODth=3
+setwd("~/repos/Autopolyploid_Linkage/src/comparison_study/")
+source("~/repos/Autopolyploid_Linkage/src/comparison_study/simulation.R")
+source("~/repos/Autopolyploid_Linkage/src/comparison_study/build_using_polymapR.R")
+source("~/repos/Autopolyploid_Linkage/src/comparison_study/build_using_MAPpoly.R")
+# n.sim=28
+# n.mrk=200
+# prob.dose=c(0.4,0.4,0.1,0.1)
+# LODth=3
 
 cat(n.sim, "\n")
+
+#creating directories
+dir.create("pedsim_files", showWarnings = FALSE)
+dir.create("rec_mat", showWarnings = FALSE)
+
 #####
 ## Data simulation
 #####
