@@ -9,7 +9,7 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
   w<-NULL
   for(i in 1:n.chr)
   {
-    ph.temp<-sim_homologous(m=m,
+    ph.temp<-sim_homologous(ploidy = m,
                             n.mrk=n.mrk,
                             max.d=m/2,    #max dosage number
                             max.ph=max.ph,
@@ -74,21 +74,19 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
     dat.f<-read.table(file = paste0(file.prefix, "_out.hsa"))
     
     ## Adequating data to mappoly format
-    data("hexafake")
     dat<-hexafake
     
     dat$n.ind<-n.ind
     dat$n.mrk<-n.mrk * n.chr
-    dat$m<-m
+    dat$ploidy<-m
     dat$ind.names<-paste0("Ind_", 1:n.ind)
     dat$mrk.names<-as.character(x[,1])
-    dat$dosage.p<-apply(w[,1:m], 1, function(x) sum(x==1))
-    dat$dosage.q<-apply(w[,(m+1):(2*m)], 1, function(x) sum(x==1))
-    dat$sequence<-rep(1:n.chr, each = n.mrk)
-    dat$sequence.pos<-NA
+    dat$dosage.p1<-apply(w[,1:m], 1, function(x) sum(x==1))
+    dat$dosage.p2<-apply(w[,(m+1):(2*m)], 1, function(x) sum(x==1))
+    dat$chrom<-rep(1:n.chr, each = n.mrk)
+    dat$genome.pos<-NA
     dat$nphen<-0
     dat$phen<-NA
-    dat$geno.dose[1:10, 1:10]
     
     G<-NULL
     ct<-1
@@ -105,7 +103,7 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
     ## in this case, instead of NA, we use ploidy level + 1 for missing values (mappoly codification)
     for(j in 1:n.mrk)
     {
-      expect<-segreg_poly(m = m, dP = dat$dosage.p[j], dQ = dat$dosage.q[j])
+      expect<-segreg_poly(ploidy = m, dP = dat$dosage.p1[j], dQ = dat$dosage.p2[j])
       names(expect)<-c(0:m)
       dr<-is.na(match(G[j,], names(expect[expect!=0])))
       if(any(dr)){
@@ -115,10 +113,11 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
     }
     dat$geno.dose<-G
     dat.mappoly<-dat
-    dat.polymapr<-cbind(dat$dosage.p, dat$dosage.q, dat$geno.dose)
+    dat.polymapr<-cbind(dat$dosage.p1, dat$dosage.p2, dat$geno.dose)
     colnames(dat.polymapr)[1:2]<-c("P1", "P2")
     dat.polymapr <- as.matrix(dat.polymapr)
     # move PedrigreeSim files to adequate dir 
+    dir.create("pedsim_files", showWarnings = FALSE)
     system(paste0("mv ", file.prefix, "* pedsim_files/"))
   }
   #######################################
@@ -127,7 +126,7 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
   myfunc<-function(x, m)
   {
     if(x[1] > m)
-      return(mappoly::segreg_poly(m = m, dP = x[2], dQ = x[3]))
+      return(mappoly::segreg_poly(ploidy = m, dP = x[2], dQ = x[3]))
     else
     {
       y<-rep(0, m+1)
@@ -137,11 +136,12 @@ simulate<-function(m = 6, map.length = 100, n.ind = 200, n.mrk = 500, n.chr  =  
   }
   x<-as.data.frame(as.table(as.matrix(dat.mappoly$geno.dose)))
   colnames(x)<-c("mrk", "ind", "dose")
-  x$dose.p<-rep(dat.mappoly$dosage.p, dat.mappoly$n.ind)
-  x$dose.q<-rep(dat.mappoly$dosage.q, dat.mappoly$n.ind)
-  y<-t(apply(x[,-c(1:2)], 1, myfunc, m = dat.mappoly$m))
-  colnames(y)<-0:dat.mappoly$m
+  x$dose.p1<-rep(dat.mappoly$dosage.p1, dat.mappoly$n.ind)
+  x$dose.p2<-rep(dat.mappoly$dosage.p2, dat.mappoly$n.ind)
+  y<-t(apply(x[,-c(1:2)], 1, myfunc, m = dat.mappoly$ploidy))
+  colnames(y)<-0:dat.mappoly$ploidy
   z<-cbind(x[,1:2], y)
   dat.mappoly$geno<-z
+  system("rm -irf pedsim_files/")
   return(list(dat.mp=dat.mappoly, dat.pm=dat.polymapr, ph.temp= ph.temp))
 }
